@@ -14,7 +14,7 @@ function Game(props) {
 }
 
 export async function getServerSideProps() {
-  const result = await fetch(`${process.env.API_BASE_URL}games`)
+  const result = await fetch(`${process.env.API_BASE_URL}/games`)
   .then((res) => {
     if (res.ok) {
       return res.json()
