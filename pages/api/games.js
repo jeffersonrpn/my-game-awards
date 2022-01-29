@@ -1,23 +1,13 @@
-const { GoogleSpreadsheet } = require("google-spreadsheet");
+import { connectToDatabase } from "../../util/mongodb";
 
-export default async function handler(req, res) {
-  const doc = new GoogleSpreadsheet(process.env.SHEET_ID_GAMES);
+export default async (req, res) => {
+  const { db } = await connectToDatabase();
 
-  await doc.useServiceAccountAuth({
-    client_email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
-    private_key: process.env.GOOGLE_PRIVATE_KEY,
-  });
+  const movies = await db
+    .collection("games")
+    .find({})
+    .sort({ name: 1 })
+    .toArray();
 
-  await doc.loadInfo();
-
-  const sheet = doc.sheetsByIndex[0];
-  const rows = await sheet.getRows();
-  const games = rows.map(({ name, img }) => {
-    return {
-      name,
-      img,
-    };
-  });
-
-  res.status(200).json(games);
-}
+  res.json(movies);
+};

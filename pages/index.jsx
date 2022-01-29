@@ -1,24 +1,6 @@
 import Head from "next/head";
 import { Container, Row, Col, Card } from "react-bootstrap";
 
-export async function getServerSideProps() {
-  const result = await fetch(`${process.env.API_BASE_URL}/games`)
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-    })
-    .then((res) => {
-      return res;
-    });
-
-  return {
-    props: {
-      games: result,
-    },
-  }
-}
-
 function Game(props) {
   const game = props.game;
   return (
@@ -28,7 +10,7 @@ function Game(props) {
         <Card.Title>{game.name}</Card.Title>
       </Card.Body>
     </Card>
-  )
+  );
 }
 
 export default function Home({ games }) {
@@ -48,10 +30,28 @@ export default function Home({ games }) {
               <Col key={i} sm="6" lg="3">
                 <Game game={game}></Game>
               </Col>
-            )
+            );
           })}
         </Row>
       </Container>
     </>
-  )
+  );
+}
+
+export async function getServerSideProps() {
+  const result = await fetch(`${process.env.API_BASE_URL}/games`)
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+    })
+    .then((res) => {
+      return res;
+    });
+
+  return {
+    props: {
+      games: result,
+    },
+  };
 }
