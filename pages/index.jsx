@@ -1,6 +1,7 @@
 import Head from "next/head";
 
 import styled from "styled-components";
+import { Typography, Button } from "@mui/material";
 
 const Heading = styled.div`
   display: grid;
@@ -52,20 +53,33 @@ const Title = styled.div`
   }
 `;
 
+const Center = styled.div`
+  text-align: center;
+`;
+
 function GamesWall(props) {
   const games = props.games;
   return (
-    <Heading>
-      <Grid>
-        {games.map((game, i) => {
-          return <img key={game.id} src={game.img} alt="{game.name}" />;
-        })}
-      </Grid>
-      <Title>
-        <h1>NTC Game Awards</h1>
-        <a href="/votar">Votar</a>
-      </Title>
-    </Heading>
+    <>
+      <Head>
+        <title>NTC Game Awards</title>
+      </Head>
+      <Heading>
+        <Grid>
+          {games.map((game, i) => {
+            return <img key={game.id} src={game.img} alt="{game.name}" />;
+          })}
+        </Grid>
+        <Title>
+          <Center>
+            <Typography variant="h1" mb={2}>NTC Game Awards</Typography>
+            <Button variant="contained" size="large" href="/votar">
+              Participe
+            </Button>
+          </Center>
+        </Title>
+      </Heading>
+    </>
   );
 }
 

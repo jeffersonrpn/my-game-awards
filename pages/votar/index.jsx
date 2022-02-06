@@ -1,38 +1,25 @@
 import Head from "next/head";
-import { Container, Row, Col, Card } from "react-bootstrap";
 
-function Game(props) {
-  const game = props.game;
-  return (
-    <Card>
-      <Card.Img src={game.img} />
-      <Card.Body>
-        <Card.Title>{game.name}</Card.Title>
-      </Card.Body>
-    </Card>
-  );
-}
+import { Link, Container, Grid, Box } from "@mui/material";
 
 export default function Home({ games }) {
   return (
     <>
       <Head>
-        <title>My Game Awards</title>
-        <link rel="icon" href="/favicon-32x32.png" />
+        <title>NTC Game Awards - Votação</title>
       </Head>
+      <Box bgcolor="#000">
+        <Container fixed>
+          <Grid container alignItems="center" justifyContent="center">
+            <Link href="/">
+              <img src="/imgs/ntc.gif" alt="NTC" width={60} />
+            </Link>
+          </Grid>
+        </Container>
+      </Box>
       <main>
-        <Container>
-          <h1>My Game Awards</h1>
-          <p>It's just the beginning</p>
-          <Row>
-            {games.map((game, i) => {
-              return (
-                <Col key={i} sm="6" lg="3">
-                  <Game game={game}></Game>
-                </Col>
-              );
-            })}
-          </Row>
+        <Container fixed>
+          <p>.</p>
         </Container>
       </main>
     </>
